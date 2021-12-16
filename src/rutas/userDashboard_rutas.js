@@ -2,6 +2,23 @@ const { Router }= require("express");
 const userDashboard_rutas = Router();
 const {user_model} = require("../modelos/user_model");
 
+userDashboard_rutas.get("/listar",function(res){
+    // const cursor = user_model.find();
+
+    //AQUI SALE UN ERROR QUE TOCA CORREGIR
+    user_model.find(function(error,usu){
+        console.log(usu);
+        if(error){
+            res.send({status:"Error",msg:"La tabla no contiene usuarios"})
+            return false;
+        }
+        else {
+            res.send({usu});
+        }     
+    })
+    // Mandar mensaje a cliente SI lo encontre o NO  (res.send)
+});
+
 userDashboard_rutas.post("/agregar", function(req,res){
     const datos = req.body;
     const user = new user_model(datos)
@@ -17,7 +34,6 @@ userDashboard_rutas.post("/agregar", function(req,res){
 userDashboard_rutas.post("/consultar",function(req,res){
     // Capturar lo que esta en la caja de texto: la de Nombre
     const {nom}=req.body;
-    console.log(nom);
     // Buscar ese jugador en la BD
     user_model.findOne({nom},function(error,usu){
         if (error){
@@ -69,6 +85,9 @@ userDashboard_rutas.post("/actualizar", function(req, res) {
         }
     )
 });
+
+
+
 
 
 // jugador_rutas.post("/eliminar", function(req,res){
