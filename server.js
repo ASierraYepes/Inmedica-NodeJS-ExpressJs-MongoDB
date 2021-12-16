@@ -10,6 +10,9 @@ app.use(express.json());
 // const {jugador_rutas} = require("./rutas/jugador_rutas");
 // app.use("/jugadores",jugador_rutas);
 
+//Rutas del login
+const {login_rutas} = require("./src/rutas/login_rutas");
+app.use("/login",login_rutas);
 
 //Rutas del registro
 const {user_rutas} = require("./src/rutas/user_rutas");
