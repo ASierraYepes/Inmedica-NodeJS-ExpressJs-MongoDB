@@ -2,21 +2,18 @@ const { Router }= require("express");
 const userDashboard_rutas = Router();
 const {user_model} = require("../modelos/user_model");
 
-userDashboard_rutas.get("/listar",function(res){
-    // const cursor = user_model.find();
-
-    //AQUI SALE UN ERROR QUE TOCA CORREGIR
-    user_model.find(function(error,usu){
-        console.log(usu);
+userDashboard_rutas.get("/listar",function(req,res){
+    user_model.find({},function(error,usuarios){
+        // console.log(usu);
         if(error){
             res.send({status:"Error",msg:"La tabla no contiene usuarios"})
             return false;
         }
         else {
-            res.send({usu});
+            res.status(200).json({usuarios})
+            return true;
         }     
     })
-    // Mandar mensaje a cliente SI lo encontre o NO  (res.send)
 });
 
 userDashboard_rutas.post("/agregar", function(req,res){
@@ -87,22 +84,10 @@ userDashboard_rutas.post("/actualizar", function(req, res) {
 });
 
 
-
-
-
-// jugador_rutas.post("/eliminar", function(req,res){
-//     const nom=req.body.nombre;
-//     let i=0;
-    
-//     for (const j of jugadores) {
-//         if (j.nombre.toLowerCase()==nom.toLowerCase()) {
-//             jugadores.splice(i, 1)
-//         break;}
-//         i=i+1; 
-//     }
-//     console.log(jugadores);
-//     res.send({status:"Ok",msg:"EL jugador fue eliminado satisfactoriamente"})
-
-// })
+userDashboard_rutas.delete("/eliminar/:doc", function(req,res){
+    user_model.deleteOne({doc: req.params.doc}).then((resultado) => {
+        res.status(200).json({resultado});
+    })
+})
 
 exports.userDashboard_rutas=userDashboard_rutas;
