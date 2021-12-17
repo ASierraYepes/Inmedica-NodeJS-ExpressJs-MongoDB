@@ -18,6 +18,7 @@ userDashboard_rutas.get("/listar",function(req,res){
 
 userDashboard_rutas.post("/agregar", function(req,res){
     const datos = req.body;
+    console.log(datos)
     const user = new user_model(datos)
     user.save(function(err){
         if(err){
@@ -49,23 +50,10 @@ userDashboard_rutas.post("/consultar",function(req,res){
     // Mandar mensaje a cliente SI lo encontre o NO  (res.send)
 });
 
-userDashboard_rutas.post("/actualizar", function(req, res) {
+userDashboard_rutas.put("/actualizar", function(req, res) {
     const datos = req.body;
     const doc   = datos.doc;
-    //let body = req.body;
-    user_model.updateOne({doc}, {
-            $set: {
-                typeDoc : datos.typeDoc,
-                doc : datos.doc,
-                nom : datos.nom,
-                mail : datos.mail,
-                password : datos.password,
-                tel : datos.tel,
-                dir : datos.dir,
-                datetime : datos.datetime,
-                rol : datos.rol
-            }
-        },
+    user_model.updateOne({doc}, datos,
         function(error, info) {
             if (error) {
                 res.json({
