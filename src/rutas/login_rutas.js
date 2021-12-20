@@ -6,12 +6,8 @@ const { sign} = require ("jsonwebtoken")
 
 login_rutas.post("/ingresar",async function(req,res){
     try {
-        // Recuperar los Datos que vienen desde el Front
         const {mail,password} = req.body;
-        // Busco los Datos de ese mail en la BD
         const user = await user_model.findOne({mail});
-        console.log(user);
-        // Pregunto si Existe, Si existe compruebo su password y enviar un mensaje si esta bien o no, 
         if (!user){
             return res.status(401).send({estado:"Error!!!",msg:"Credenciales NO Validas!!!"});
         }
@@ -24,7 +20,6 @@ login_rutas.post("/ingresar",async function(req,res){
         else{
             return res.status(401).send({estado:"Error!!!",msg:"Credenciales NO Validas"});
         }
-        // y Responder al Cliente
     }
     catch (error){
     }

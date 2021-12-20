@@ -32,28 +32,25 @@ agenda_rutas.post("/grabar_a",function(req,res){
     
 });
 //ok
-agenda_rutas.get("/consulta_a",function(req,res){
-    // Capturar lo que esta en la caja de texto: la de Nombre
-    const {fecha}=req.body;
-    const {hora}=req.body;
-    // Buscar ese jugador en la BD
-    //console.log(num,typeDoc);
-    agenda_model.findOne({$and:[{fecha},{hora}]},function(error,agenda){
-        if (error){
-            res.send({status:"ERROR!!!",msg:"Hora y Fecha no encontrado"});
-            return false;        
-        }
-        else{
-            if (agenda !== null){
-                res.send({status:"Ok",msg:"Hora y Fecha encontrado",dato:agenda});            
-            }
-            else{
-                res.send({status:"ERROR!!!",msg:"Hora y Fecha no Encontrado"});
-            }
-        }
-    })
-    // Mandar mensaje a cliente SI lo encontre o NO  (res.send)
-});
+// agenda_rutas.get("/consulta_a",function(req,res){
+//     const {fecha}=req.body;
+//     const {hora}=req.body;
+//     agenda_model.findOne({$and:[{fecha},{hora}]},function(error,agenda){
+//         if (error){
+//             res.send({status:"ERROR!!!",msg:"Hora y Fecha no encontrado"});
+//             return false;        
+//         }
+//         else{
+//             if (agenda !== null){
+//                 res.send({status:"Ok",msg:"Hora y Fecha encontrado",dato:agenda});            
+//             }
+//             else{
+//                 res.send({status:"ERROR!!!",msg:"Hora y Fecha no Encontrado"});
+//             }
+//         }
+//     })
+//     // Mandar mensaje a cliente SI lo encontre o NO  (res.send)
+// });
 //ok
 agenda_rutas.get("/listar_a",function(req,res){
     agenda_model.find({},function(error,horarios){
@@ -119,7 +116,6 @@ agenda_rutas.post("/actualizar_a", function(req, res) {
     const hora = datos.hora;
     const fecha = datos.fecha;
     const _id = datos._id;
-    console.log(datos);
     //let body = req.body;
     agenda_model.updateOne({_id}, datos,
         function(error, info) {

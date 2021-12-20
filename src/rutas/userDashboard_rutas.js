@@ -18,7 +18,6 @@ userDashboard_rutas.get("/listar",function(req,res){
 
 userDashboard_rutas.post("/agregar", function(req,res){
     const datos = req.body;
-    console.log(datos)
     const user = new user_model(datos)
     user.save(function(err){
         if(err){
