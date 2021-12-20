@@ -31,10 +31,10 @@ citaexamen_rutas.post("/grabar_ce",function(req,res){
                                     const cita = new citaexamen_model(datos);
                                     cita.save(function(err){
                                         if(err){
-                                            res.status(500).send({estado:"ERROR",msg:"Cita no se programo"});
+                                            res.status(500).send({estado:"ERROR",msg:"Cita no se programó"});
                                             return false;
                                         }
-                                        return res.status(200).send({estado:"OK",msg:"Cita se Programo con existo"});
+                                        return res.status(200).send({estado:"OK",msg:"Cita se Programo con éxito"});
                                     })    
                                 }else{
                                     res.status(500).send({estado:"ERROR",msg:"Cita no se programo, Horario Ocupado"});
@@ -89,31 +89,16 @@ citaexamen_rutas.get("/consulta_ce",function(req,res){
 });
 //ok
 citaexamen_rutas.get("/listar_ce",function(req,res){
-
-    const datos  = req.body;
-    const typeDoc = datos.typeDoc;
-    const doc     = datos.doc;
-    user_model.findOne({$and:[{typeDoc},{doc}]},function(erroru, usu){
-        if ( usu !== null ){
-            citaexamen_model.find({},function(error,examen){
-        //console.log(usu);
-                if(error){
-                    res.send({status:"Error",msg:"La tabla no contiene usuarios"})
-                    return false;
-                }
-                else {
-                    var j = [];
-                    examen.forEach(function(e){
-                        j.push(e);
-                        console.log(e);
-                    })
-                    res.send(j);
-                    return true;
-                }     
-            })
-        }else{
-            res.send({status:"ERROR!!!",msg:"Paciente no Encontrado"});
+    citaexamen_model.find({},function(error,citas){
+        // console.log(usu);
+        if(error){
+            res.send({status:"Error",msg:"La tabla no contiene citas"})
+            return false;
         }
+        else {
+            res.status(200).json({citas})
+            return true;
+        }     
     })        
     // Mandar mensaje a cliente SI lo encontre o NO  (res.send)
 });
@@ -159,5 +144,46 @@ citaexamen_rutas.post("/eliminar_e", function(req,res){
         }        
     })
 })
+
+citaexamen_rutas.post("/actualizar_ce",function(req,res){
+    // Recuperar los Datos que vienen desde el Front
+    const datos  = req.body;
+    const _id = datos._id;
+    const typeDoc = datos.typeDoc;
+    const doc     = datos.doc;
+    const fecha   = datos.fecha;
+    const hora    = datos.hora
+    // Verifico Usuario Exista
+    agenda_model.findOne({$and:[{fecha},{hora}]},function(errora, agenda){
+        if (agenda != null){
+            // Verifico que la cita este libre 
+            //if ( agenda.estado === 0 ){
+            citaexamen_model.findOne({$and:[{fecha},{hora}]},function(errorc, cita){    
+                if (cita == null){
+              //Guardar esos datos
+              console.log(_id);
+              citaexamen_model.updateOne({_id}, datos,
+                function(error, info){
+                    if (error) {
+                        res.json({
+                            resultado: false,
+                            msg: 'No se pudo actualizar la cita',
+                            err
+                        });
+                    } else {
+                        res.json({
+                            resultado: true,
+                            msg: 'Cita actualizada con exito',
+                            info: info
+                        })
+                    }
+                    })    
+                }else{
+                    res.status(500).send({estado:"ERROR",msg:"Cita no se actualizó, Horario ocupado"});
+                    return false;
+                }
+            })      
+    }})
+});
 
 exports.citaexamen_rutas=citaexamen_rutas;
