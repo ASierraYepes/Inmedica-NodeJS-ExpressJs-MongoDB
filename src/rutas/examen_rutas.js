@@ -13,15 +13,15 @@ examen_rutas.post("/grabar_e",function(req,res){
             const exameng = new examen_model(datos);
             exameng.save(function(err){
                 if(err){
-                    res.status(500).send({estado:"ERROR",msg:"La fecha y la hora ya se encuentra registrado!!!"});
+                    res.status(500).send({estado:"ERROR",msg:"El examen ya se encuentra registrado!!!"});
                     return false;
                 }
-                return res.status(200).send({estado:"OK",msg:"Se agrego a examen La fecha y Hora exitosamente!"});
+                return res.status(200).send({estado:"OK",msg:"Se agrego examen exitosamente!"});
             })        
         }
         else{  
             if (examen !== null){
-                res.send({status:"Ok",msg:"La Fecha y Hora ya se encuentra Registrado"});            
+                res.send({status:"Ok",msg:"El examen ya se encuentra Registrado"});            
             }
             // else{
             //     res.send({status:"ERROR!!!",msg:"El usuario no se registro"});
@@ -39,15 +39,15 @@ examen_rutas.get("/consulta_e",function(req,res){
     //console.log(num,typeDoc);
     examen_model.findOne({codigo},function(error,examen){
         if (error){
-            res.send({status:"ERROR!!!",msg:"Hora y Fecha no encontrado"});
+            res.send({status:"ERROR!!!",msg:"Examen no encontrado"});
             return false;        
         }
         else{
             if (examen !== null){
-                res.send({status:"Ok",msg:"Hora y Fecha encontrado",dato:examen});            
+                res.send({status:"Ok",msg:"Examen encontrado",dato:examen});            
             }
             else{
-                res.send({status:"ERROR!!!",msg:"Hora y Fecha no Encontrado"});
+                res.send({status:"ERROR!!!",msg:"Examen no Encontrado"});
             }
         }
     })
@@ -59,7 +59,7 @@ examen_rutas.get("/listar_e",function(req,res){
     examen_model.find({},function(error,examen){
         //console.log(usu);
         if(error){
-            res.send({status:"Error",msg:"La tabla no contiene usuarios"})
+            res.send({status:"Error",msg:"La tabla no contiene examenes"})
             return false;
         }
         else {
@@ -90,9 +90,9 @@ examen_rutas.post("/eliminar_e", function(req,res){
     //jugadormodel.deleteOne({nombre},function(error,jug){
     //console.log(jug);
         if (examen.deletedCount==0 || error){
-            return res.status(401).send({estado:"Error!!!",msg:"Fecha y hora NO Eliminado"});
+            return res.status(401).send({estado:"Error!!!",msg:"Examen no eliminado"});
         }
-        return res.status(200).send({estado:"OK",msg:"Fecha y Hora Eliminado"});
+        return res.status(200).send({estado:"OK",msg:"Examen eliminado"});
     })
 })
 
@@ -121,7 +121,7 @@ examen_rutas.post("/actualizar_e", function(req, res) {
             if (error) {
                 res.json({
                     resultado: false,
-                    msg: 'No se pudo modificar el usuario',
+                    msg: 'No se pudo modificar el examen',
                     err
                 });
             } else {
