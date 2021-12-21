@@ -5,7 +5,7 @@ const {user_model} = require("../modelos/user_model");
 const {agenda_model} = require("../modelos/agenda_model");
 const {citaexamen_model} = require("../modelos/citaexamen_model");
 
-//ok
+
 citaexamen_rutas.post("/grabar_ce",function(req,res){
     // Recuperar los Datos que vienen desde el Front
     const datos  = req.body;

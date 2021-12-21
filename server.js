@@ -19,19 +19,19 @@ app.use("/user",user_rutas);
 const {userDashboard_rutas} = require("./src/rutas/userDashboard_rutas");
 app.use("/crudDash",userDashboard_rutas);
 
-//Rutas del registro
+//Rutas del agenda
 const {agenda_rutas} = require("./src/rutas/agenda_rutas");
 app.use("/agenda",agenda_rutas);
 
-//Rutas del registro
+//Rutas del examen
 const {examen_rutas} = require("./src/rutas/examen_rutas");
 app.use("/examen",examen_rutas);
 
-//Rutas del registro
+//Rutas del resultado de examen
 const {resultadoexamen_rutas} = require("./src/rutas/resultadoexamen_rutas");
 app.use("/resultadoexamen",resultadoexamen_rutas);
 
-//Rutas del registro
+//Rutas del cita para examen
 const {citaexamen_rutas} = require("./src/rutas/citaexamen_rutas");
 app.use("/citaexamen",citaexamen_rutas);
 
