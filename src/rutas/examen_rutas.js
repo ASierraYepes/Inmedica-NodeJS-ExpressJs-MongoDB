@@ -5,23 +5,23 @@ const {examen_model} = require("../modelos/examen_model");
 examen_rutas.post("/grabar_e",function(req,res){
     // Recuperar los Datos que vienen desde el Front
     const datos  = req.body;
-    const codigo = datos.codigo;
-    //const hora  = datos.hora;
+    const codigo = datos.cod;
+    console.log(datos)
     examen_model.findOne({codigo},function(error, examen){
         if (examen === null){
             //Guardar esos datos
             const exameng = new examen_model(datos);
             exameng.save(function(err){
                 if(err){
-                    res.status(500).send({estado:"ERROR",msg:"La fecha y la hora ya se encuentra registrado!!!"});
+                    res.status(500).send({estado:"ERROR",msg:"El exámen no se pudo agregar!!!"});
                     return false;
                 }
-                return res.status(200).send({estado:"OK",msg:"Se agrego a examen La fecha y Hora exitosamente!"});
+                return res.status(200).send({estado:"OK",msg:"Se agrego exámen exitosamente!"});
             })        
         }
         else{  
             if (examen !== null){
-                res.send({status:"Ok",msg:"La Fecha y Hora ya se encuentra Registrado"});            
+                res.send({status:"Ok",msg:"Exámen ya se encuentra registrado!"});            
             }
             // else{
             //     res.send({status:"ERROR!!!",msg:"El usuario no se registro"});
@@ -30,6 +30,8 @@ examen_rutas.post("/grabar_e",function(req,res){
     })
     
 });
+
+
 
 examen_rutas.get("/listar_e",function(req,res){
 

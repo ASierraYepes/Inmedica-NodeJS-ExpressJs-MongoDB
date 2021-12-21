@@ -4,12 +4,10 @@ const examen_esquema = new Schema({
     codigo:{
         type: "string",
         required:true,
-        max:20
     },
     descripcion:{
         type: "string",
-        required:true,
-        max:50      
+        required:true,  
     }
 })
 
