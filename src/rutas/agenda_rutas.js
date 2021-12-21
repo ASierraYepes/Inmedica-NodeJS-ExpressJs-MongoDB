@@ -22,7 +22,7 @@ agenda_rutas.post("/grabar_a",function(req,res){
         }
         else{  
             if (agenda !== null){
-                res.send({status:"Ok",msg:"La Fecha y Hora ya se encuentra Registrado"});            
+                res.send({status:"Ok",msg:"La Fecha y Hora ya se encuentra registrado"});            
             }
             // else{
             //     res.send({status:"ERROR!!!",msg:"El usuario no se registro"});

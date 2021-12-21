@@ -15,15 +15,15 @@ user_rutas.post("/registrar",function(req,res){
             const user = new user_model(datos);
             user.save(function(err){
                 if(err){
-                    res.status(500).send({estado:"ERROR",msg:"Usuario ya se encuentra registrado!!!"});
+                    res.status(500).send({estado:"ERROR",msg:"El usuario ya se encuentra registrado!!!"});
                     return false;
                 }
-                return res.status(200).send({estado:"OK",msg:"Usuario registrado exitosamente!"});
+                return res.status(200).send({estado:"OK",msg:"El usuario registrado exitosamente!"});
             })        
         }
         else{  
             if (usuario !== null){
-                res.send({status:"Ok",msg:"Usuario ya se encuentra Registrado"});            
+                res.send({status:"Ok",msg:"El usuario ya se encuentra registrado"});            
             }
             // else{
             //     res.send({status:"ERROR!!!",msg:"El usuario no se registro"});

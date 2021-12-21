@@ -21,18 +21,18 @@ resultadoexamen_rutas.post("/grabar_r",function(req,res){
                     dexameng.save(function(err){
                     if(err){
                         console.log(err);
-                        res.status(500).send({estado:"ERROR",msg:"El resultado Examen ya se encuentra registrado!!!"});
+                        res.status(500).send({estado:"ERROR",msg:"El resultado del examen ya se encuentra registrado!!!"});
                         return false;
                     }
                     return res.status(200).send({estado:"OK",msg:"Se agrego resultado de examen exitosamente!"});
                     })
                 }else{
-                    res.status(500).send({estado:"ERROR",msg:"Examen No existe"});
+                    res.status(500).send({estado:"ERROR",msg:"El examen no existe"});
                     return false;                        
                 }    
             })
         }else{
-            res.status(500).send({estado:"ERROR",msg:"Usuario No existe"});
+            res.status(500).send({estado:"ERROR",msg:"El usuario no existe"});
             return false;                                    
         }        
     })              
@@ -47,15 +47,15 @@ resultadoexamen_rutas.get("/consulta_de",function(req,res){
         if (examen !== null){    
             resultadoexamen_model.findOne({$and:[{codigo},{descripcion_valor}]},function(error,dexamen){
                 if (error){
-                    res.send({status:"ERROR!!!",msg:"resultados de Examen no encontrado"});
+                    res.send({status:"ERROR!!!",msg:"El resultado del examen no encontrado"});
                     return false;        
                 }
                 else{
                     if (dexamen !== null){
-                        res.send({status:"Ok",msg:"resultados de Examen encontrado",dato:dexamen});            
+                        res.send({status:"Ok",msg:"El resultado del examen encontrado",dato:dexamen});            
                     }
                     else{
-                        res.send({status:"ERROR!!!",msg:"Hora y Fecha no Encontrado"});
+                        res.send({status:"ERROR!!!",msg:"Hora y fecha no encontrado"});
                     }
                 }
             })
@@ -72,7 +72,7 @@ resultadoexamen_rutas.get("/consulta_dec",function(req,res){
         if (examen !== null){    
             resultadoexamen_model.find({codigo},function(error,dexamen){
                 if (error){
-                    res.send({status:"ERROR!!!",msg:"resultados de Examen no encontrado"});
+                    res.send({status:"ERROR!!!",msg:"El resultado del examen no encontrado"});
                     return false;        
                 }
                 else{
@@ -83,11 +83,11 @@ resultadoexamen_rutas.get("/consulta_dec",function(req,res){
                             console.log(de);
                         })
                         //res.send(j);
-                        res.send({status:"Ok",msg:"resultados de Examen encontrado",dato:j});            
+                        res.send({status:"Ok",msg:"El resultado del examen encontrado",dato:j});            
                         return true;                        
                     }
                     else{
-                        res.send({status:"ERROR!!!",msg:"Hora y Fecha no Encontrado"});
+                        res.send({status:"ERROR!!!",msg:"Hora y fecha no encontrado"});
                     }
                 }
             })
@@ -131,9 +131,9 @@ resultadoexamen_rutas.post("/eliminar_e", function(req,res){
         if (examen !== null){     
             resultadoexamen_model.deleteOne({codigo},function(error,dexamen){
                 if (resultadoexamen.deletedCount==0 || error){
-                    return res.status(401).send({estado:"Error!!!",msg:"Fecha y hora NO Eliminado"});
+                    return res.status(401).send({estado:"Error!!!",msg:"Fecha y hora NO eliminado"});
                 }
-                return res.status(200).send({estado:"OK",msg:"Fecha y Hora Eliminado"});
+                return res.status(200).send({estado:"OK",msg:"Fecha y hora eliminado"});
             })
         }
     })        

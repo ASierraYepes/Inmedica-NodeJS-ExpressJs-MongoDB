@@ -16,12 +16,12 @@ examen_rutas.post("/grabar_e",function(req,res){
                     res.status(500).send({estado:"ERROR",msg:"La fecha y la hora ya se encuentra registrado!!!"});
                     return false;
                 }
-                return res.status(200).send({estado:"OK",msg:"Se agrego a examen La fecha y Hora exitosamente!"});
+                return res.status(200).send({estado:"OK",msg:"Se agrego a examen La fecha y hora exitosamente!"});
             })        
         }
         else{  
             if (examen !== null){
-                res.send({status:"Ok",msg:"La Fecha y Hora ya se encuentra Registrado"});            
+                res.send({status:"Ok",msg:"La Fecha y Hora ya se encuentra registrado"});            
             }
             // else{
             //     res.send({status:"ERROR!!!",msg:"El usuario no se registro"});

@@ -9,7 +9,7 @@ login_rutas.post("/ingresar",async function(req,res){
         const {mail,password} = req.body;
         const user = await user_model.findOne({mail});
         if (!user){
-            return res.status(401).send({estado:"Error!!!",msg:"Credenciales NO Validas!!!"});
+            return res.status(401).send({estado:"Error!!!",msg:"Credenciales NO validas!!!"});
         }
         const passok = await compare(password,user.password);
         console.log(passok);
@@ -18,7 +18,7 @@ login_rutas.post("/ingresar",async function(req,res){
             return res.status(200).send({estado:"OK",msg:"Logeado!!!",token});
         }
         else{
-            return res.status(401).send({estado:"Error!!!",msg:"Credenciales NO Validas"});
+            return res.status(401).send({estado:"Error!!!",msg:"Credenciales NO validas"});
         }
     }
     catch (error){

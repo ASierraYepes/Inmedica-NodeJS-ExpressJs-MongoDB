@@ -31,29 +31,29 @@ citaexamen_rutas.post("/grabar_ce",function(req,res){
                                     const cita = new citaexamen_model(datos);
                                     cita.save(function(err){
                                         if(err){
-                                            res.status(500).send({estado:"ERROR",msg:"Cita no se programó"});
+                                            res.status(500).send({estado:"ERROR",msg:"La cita no se programó"});
                                             return false;
                                         }
-                                        return res.status(200).send({estado:"OK",msg:"Cita se Programo con éxito"});
+                                        return res.status(200).send({estado:"OK",msg:"La cita se programó con éxito"});
                                     })    
                                 }else{
-                                    res.status(500).send({estado:"ERROR",msg:"Cita no se programo, Horario Ocupado"});
+                                    res.status(500).send({estado:"ERROR",msg:"La cita no se programó, horario ocupado"});
                                     return false;
                                 }
                             })        
                             //}   
                         }else{
-                            res.status(500).send({estado:"ERROR",msg:"Horario No existe"});
+                            res.status(500).send({estado:"ERROR",msg:"El horario no existe"});
                             return false;                        
                         }    
                     })    
                 }else{
-                    res.status(500).send({estado:"ERROR",msg:"Examen No existe"});
+                    res.status(500).send({estado:"ERROR",msg:"El examen no existe"});
                     return false;                        
                 }    
             })
         }else{
-            res.status(500).send({estado:"ERROR",msg:"Usuario No existe"});
+            res.status(500).send({estado:"ERROR",msg:"El usuario no existe"});
             return false;                                    
         }        
     })              
@@ -69,20 +69,20 @@ citaexamen_rutas.get("/consulta_ce",function(req,res){
         if ( usu !== null ){    
             citaexamen_model.findOne({codigo},function(errorc,cexamen){
                 if (error){
-                    res.send({status:"ERROR!!!",msg:"Citas para Examen no encontrado"});
+                    res.send({status:"ERROR!!!",msg:"La cita para Examen no fue encontrado"});
                     return false;        
                 }
                 else{
                     if (cexamen !== null){
-                        res.send({status:"Ok",msg:"Citas Para examen encontrado",dato:cexamen});            
+                        res.send({status:"Ok",msg:"La cita para examen fue encontrado",dato:cexamen});            
                     }
                     else{
-                        res.send({status:"ERROR!!!",msg:"Citas Para examen no Encontrado"});
+                        res.send({status:"ERROR!!!",msg:"La cita para examen no fue Encontrado"});
                     }
                 }
             })
         }else{
-            res.send({status:"ERROR!!!",msg:"Paciente no Encontrado"});
+            res.send({status:"ERROR!!!",msg:"El paciente no fue Encontrado"});
         }
     })        
     // Mandar mensaje a cliente SI lo encontre o NO  (res.send)
@@ -149,7 +149,7 @@ citaexamen_rutas.post("/actualizar_ce",function(req,res){
                     }
                     })    
                 }else{
-                    res.status(500).send({estado:"ERROR",msg:"Cita no se actualizó, Horario ocupado"});
+                    res.status(500).send({estado:"ERROR",msg:"La cita no se actualizó, Horario ocupado"});
                     return false;
                 }
             })      

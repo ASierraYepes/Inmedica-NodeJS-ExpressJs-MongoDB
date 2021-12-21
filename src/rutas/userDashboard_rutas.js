@@ -34,15 +34,15 @@ userDashboard_rutas.post("/consultar",function(req,res){
     // Buscar ese jugador en la BD
     user_model.findOne({nom},function(error,usu){
         if (error){
-            res.send({status:"ERROR!!!",msg:"Usuario no encontrado"});
+            res.send({status:"ERROR!!!",msg:"El usuario no fue encontrado"});
             return false;        
         }
         else{
             if (usu !== null){
-                res.send({status:"Ok",msg:"Usuario encontrado",dato:usu});            
+                res.send({status:"Ok",msg:"EL usuario fue encontrado",dato:usu});            
             }
             else{
-                res.send({status:"ERROR!!!",msg:"Usuario no Encontrado"});
+                res.send({status:"ERROR!!!",msg:"EL usuario no fue Encontrado"});
             }
         }
     })
