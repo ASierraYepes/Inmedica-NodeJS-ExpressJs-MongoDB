@@ -30,49 +30,20 @@ examen_rutas.post("/grabar_e",function(req,res){
     })
     
 });
-//ok
-examen_rutas.get("/consulta_e",function(req,res){
-    // Capturar lo que esta en la caja de texto: la de Nombre
-    const {codigo}=req.body;
-    //const {hora}=req.body;
-    // Buscar ese jugador en la BD
-    //console.log(num,typeDoc);
-    examen_model.findOne({codigo},function(error,examen){
-        if (error){
-            res.send({status:"ERROR!!!",msg:"Hora y Fecha no encontrado"});
-            return false;        
-        }
-        else{
-            if (examen !== null){
-                res.send({status:"Ok",msg:"Hora y Fecha encontrado",dato:examen});            
-            }
-            else{
-                res.send({status:"ERROR!!!",msg:"Hora y Fecha no Encontrado"});
-            }
-        }
-    })
-    // Mandar mensaje a cliente SI lo encontre o NO  (res.send)
-});
-//ok
+
 examen_rutas.get("/listar_e",function(req,res){
 
-    examen_model.find({},function(error,examen){
-        //console.log(usu);
+    examen_model.find({},function(error,examenes){
+        // console.log(usu);
         if(error){
-            res.send({status:"Error",msg:"La tabla no contiene usuarios"})
+            res.send({status:"Error",msg:"La tabla no contiene examenes"})
             return false;
         }
         else {
-            var j = [];
-            examen.forEach(function(e){
-                j.push(e);
-                console.log(e);
-            })
-            res.send(j);
+            res.status(200).json({examenes})
             return true;
         }     
     })
-    // Mandar mensaje a cliente SI lo encontre o NO  (res.send)
 });
 
 //userDashboard_rutas.delete("/eliminar/:doc", function(req,res){
@@ -81,18 +52,9 @@ examen_rutas.get("/listar_e",function(req,res){
 //    })
 //})
 
-examen_rutas.post("/eliminar_e", function(req,res){
-    const {codigo}=req.body;
-    //const {hora}=req.body;
-    //console.log(nombre);
-    // Buscar ese jugador en la BD
-    examen_model.deleteOne({codigo},function(error,examen){
-    //jugadormodel.deleteOne({nombre},function(error,jug){
-    //console.log(jug);
-        if (examen.deletedCount==0 || error){
-            return res.status(401).send({estado:"Error!!!",msg:"Fecha y hora NO Eliminado"});
-        }
-        return res.status(200).send({estado:"OK",msg:"Fecha y Hora Eliminado"});
+examen_rutas.delete("/eliminar_e/:_id", function(req,res){
+    examen_model.deleteOne({_id: req.params._id}).then((resultado) => {
+        res.status(200).json({resultado});
     })
 })
 
@@ -110,23 +72,20 @@ examen_rutas.post("/eliminar_e", function(req,res){
 
 examen_rutas.post("/actualizar_e", function(req, res) {
     const datos  = req.body;
-    const codigo = datos.codigo;
+    const _id = datos._id;
     //let body = req.body;
-    examen_model.updateOne({codigo}, {
-            $set: {
-                descripcion : datos.descripcion
-            }
-        },
+    examen_model.updateOne({_id}, datos,
         function(error, info) {
             if (error) {
                 res.json({
                     resultado: false,
-                    msg: 'No se pudo modificar el usuario',
+                    msg: 'No se pudo modificar el examen',
                     err
                 });
             } else {
                 res.json({
                     resultado: true,
+                    msg: 'Examen actualizado exitosamente',
                     info: info
                 })
             }

@@ -28,8 +28,8 @@ const {examen_rutas} = require("./src/rutas/examen_rutas");
 app.use("/examen",examen_rutas);
 
 //Rutas del registro
-const {detalleexamen_rutas} = require("./src/rutas/detalleexamen_rutas");
-app.use("/detalleexamen",detalleexamen_rutas);
+const {resultadoexamen_rutas} = require("./src/rutas/resultadoexamen_rutas");
+app.use("/resultadoexamen",resultadoexamen_rutas);
 
 //Rutas del registro
 const {citaexamen_rutas} = require("./src/rutas/citaexamen_rutas");
