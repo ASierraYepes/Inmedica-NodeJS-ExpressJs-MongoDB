@@ -7,7 +7,6 @@ const citaexamen_esquema = new Schema({
     },
     doc:{
         type: Number,
-        unique:true,
         required:true
     },
     fecha:{

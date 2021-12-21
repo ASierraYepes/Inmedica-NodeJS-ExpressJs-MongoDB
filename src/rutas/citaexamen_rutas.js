@@ -109,39 +109,9 @@ citaexamen_rutas.get("/listar_ce",function(req,res){
 //    })
 //})
 
-citaexamen_rutas.post("/eliminar_e", function(req,res){
-    const datos  = req.body;
-    const codigo = datos.codigo;
-    const typeDoc = datos.typeDoc;
-    const doc     = datos.doc;
-    const fecha   = datos.fecha;
-    const hora    = datos.hora
-    // Verifico Usuario Exista
-    user_model.findOne({$and:[{typeDoc},{doc}]},function(erroru, usu){
-        if ( usu !== null ){
-            // Verifico Examen Exista
-            examen_model.findOne({codigo},function(errore, examen){
-                if (examen !== null){
-                    // Verifico que exista agenda
-                    agenda_model.findOne({$and:[{fecha},{hora}]},function(errora, agenda){
-                        if (agenda !== null){
-                            citaexamen_model.deleteOne({$and:[{codigo},{typeDoc},{doc},{fecha},{hora}]},function(error,cexamen){
-                                if (cexamen.deletedCount==0 || error){
-                                    return res.status(401).send({estado:"Error!!!",msg:"Cita NO Eliminado"});
-                                }
-                                return res.status(200).send({estado:"OK",msg:"Cita Eliminado"});
-                            })
-                        }else{
-                            return res.status(401).send({estado:"Error!!!",msg:"No existe Cita, NO Eliminado"});
-                        }            
-                    })
-                }else{
-                    return res.status(401).send({estado:"Error!!!",msg:"No existe Examen, Cita NO Eliminado"});
-                }
-            })
-        }else{
-            return res.status(401).send({estado:"Error!!!",msg:"No existe Paciente, Cita NO Eliminado"});
-        }        
+citaexamen_rutas.delete("/eliminar_c/:_id", function(req,res){
+    citaexamen_model.deleteOne({_id: req.params._id}).then((resultado) => {
+        res.status(200).json({resultado});
     })
 })
 
