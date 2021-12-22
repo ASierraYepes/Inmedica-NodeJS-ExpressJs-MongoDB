@@ -5,8 +5,7 @@ const {examen_model} = require("../modelos/examen_model");
 examen_rutas.post("/grabar_e",function(req,res){
     // Recuperar los Datos que vienen desde el Front
     const datos  = req.body;
-    const codigo = datos.cod;
-    console.log(datos)
+    const codigo = datos.codigo;
     examen_model.findOne({codigo},function(error, examen){
         if (examen === null){
             //Guardar esos datos
